@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.13)
 project(postfix)
 
-set(CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_FLAGS  "-Wwrite-strings")
 
-add_executable(postfix main.cpp)
+set(SOURCE_FILES
+        "src/main.cpp"
+        "src/emitter.cpp"
+        "src/init.cpp"
+        "src/lexer.cpp"
+        "src/parser.cpp"
+        "src/symbol.cpp")
+
+add_executable(postfix ${SOURCE_FILES})

@@ -64,8 +64,8 @@ void factor()
 		match(ID); 
 		break;
 	default:
-        //return;
-		error("factor: syntax error");
+        return;
+		//error("factor: syntax error");
 	}
 }
 

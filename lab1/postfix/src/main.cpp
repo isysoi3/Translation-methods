@@ -1,8 +1,9 @@
 #include "global.h"
 
-void main()
+int main()
 {
 	init();
 	parse();
-	exit(0);
+
+	return 0;
 }

@@ -12,7 +12,7 @@ int lexan()
 			;
 		else if (isdigit(t)) {
 			ungetc(t, stdin);
-			scanf_s("%d", &tokenval);
+			scanf("%d", &tokenval);
 			return NUM;
 		}
 		else if (isalpha(t)) {
