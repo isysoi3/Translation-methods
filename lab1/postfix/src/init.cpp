@@ -1,8 +1,8 @@
 #include "global.h"
 
 struct entry keywords[] = {
-    "mod", MOD,
-    "div", DIV,
+    "MOD", MOD,
+    "DIV", DIV,
 	0, 0
 };
 
