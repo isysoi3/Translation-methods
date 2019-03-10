@@ -2,6 +2,12 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include <iostream>
+#include <string>
+#include <fstream>
+
+#define STRMAX 999
+#define SYMMAX 100
 
 #define BSIZE	128
 #define NONE	-1
@@ -17,20 +23,20 @@ extern int tokenval;
 extern int lineno;
 
 struct entry {
-	char*	lexptr;
-	int		token;
+    char*	lexptr;
+    int		token;
 };
 
 extern struct entry symtable[];
 
 int lexan();
 void parse();
-void expr();
-void term();
-void factor();
+std::string expr();
+std::string term();
+std::string factor();
 void match(int t);
-void emit(int t, int tval);
+std::string emit(int t, int tval);
 int lookup(char s[]);
 int insert(char s[], int tok);
 void init();
-void error(char* message);
+void error(const char* message);

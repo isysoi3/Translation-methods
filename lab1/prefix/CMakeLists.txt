@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 project(prefix)
 
-SET(CMAKE_CXX_FLAGS  "-Wwrite-strings")
-
 set(SOURCE_FILES
         "src/main.cpp"
         "src/emitter.cpp"

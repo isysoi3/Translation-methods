@@ -4,74 +4,79 @@ int lookahead;
 
 void parse()
 {
-	lookahead = lexan();
-	while (lookahead != DONE) {
-		expr();
-		//match(';');
-	}
+    lookahead = lexan();
+    std::string result = "";
+    while (lookahead != DONE) {
+        result += expr();
+    }
+    std::cout << result << std::endl;
 }
 
-void expr()
+std::string expr()
 {
-	int t;
-	term();
-	while (1) {
-		switch (lookahead) {
-		case '+': case '-':
-			t = lookahead;
-			match(lookahead);
-			term();
-			emit(t, NONE);
-			continue;
-		default:
-			return;
-		}
-	}
+    std::string result;
+    int t;
+    result = term();
+    while (true) {
+        switch (lookahead) {
+            case '+': case '-':
+                t = lookahead;
+                match(lookahead);
+                result = emit(t, NONE) + result;
+                result += term();
+                continue;
+            default:
+                return result;
+        }
+    }
 }
 
-void term()
+std::string term()
 {
-	int t;
-	factor();
-	while (1) {
-		switch (lookahead) {
-		case '*': case '/': case DIV: case MOD:
-			t = lookahead;
-			match(lookahead);
-			factor();
-			emit(t, NONE);
-			continue;
-		default:
-			return;
-		}
-	}
+    std::string result;
+    int t;
+    result = factor();
+    while (true) {
+        switch (lookahead) {
+            case '*': case '/': case DIV: case MOD:
+                t = lookahead;
+                match(lookahead);
+                result = emit(t, NONE) + result;
+                result += factor();
+                continue;
+            default:
+                return result;
+        }
+    }
 }
 
-void factor()
+std::string factor()
 {
-	switch (lookahead) {
-	case '(': 
-		match('('); 
-		expr(); 
-		match(')'); 
-		break;
-	case NUM: 
-		emit(NUM, tokenval); 
-		match(NUM); 
-		break;
-	case ID: 
-		emit(ID, tokenval); 
-		match(ID); 
-		break;
-	default:
-        error("factor: syntax error");
-	}
+    std::string result;
+    switch (lookahead) {
+        case '(':
+            match('(');
+            result = expr();
+            match(')');
+            return result;
+        case NUM:
+            result = emit(NUM, tokenval);
+            match(NUM);
+            return result;
+        case ID:
+            result = emit(ID, tokenval);
+            match(ID);
+            return result;
+        default:
+            error("factor: syntax error");
+    }
+    return "";
 }
 
 void match(int t)
 {
-	if (lookahead == t)
-		lookahead = lexan();
-	else
-		error("match: syntax error");
+    if (lookahead == t)
+        lookahead = lexan();
+    else
+        error("match: syntax error");
 }

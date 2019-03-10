@@ -1,26 +1,22 @@
 #include "global.h"
 
-void emit(int t, int tval) {
-	switch (t) {
-		case '+':
-		case '-':
-		case '*':
-		case '/':
-			printf("%c", t);
-			break;
-		case DIV:
-			printf("DIV");
-			break;
-		case MOD:
-			printf("MOD");
-			break;
-		case NUM:
-			printf("%d", tval);
-			break;
-		case ID:
-			printf("%s", symtable[tval].lexptr);
-			break;
-		default:
-			printf("token %d, tokenval %d\n", t, tval);
-	}
+std::string emit(int t, int tval) {
+    switch (t) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            return std::string(1, (char)t);
+        case DIV:
+            return "DIV";
+        case MOD:
+            return "MOD";
+        case NUM:
+            return std::to_string(tval);
+        case ID:
+            return symtable[tval].lexptr;
+        default:
+            printf("token %d, tokenval %d\n", t, tval);
+    }
+    return "";
 }

@@ -13,7 +13,7 @@ void init()
 		insert(p->lexptr, p->token);
 }
 
-void error(char* message)
+void error(const char* message)
 {
 	printf("%s\n", message);
 	exit(-1);
