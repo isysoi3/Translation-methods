@@ -31,9 +31,9 @@ extern struct entry symtable[];
 
 int lexan();
 void parse();
-std::string expr();
-std::string term();
-std::string factor();
+void expr();
+void term();
+void factor();
 void match(int t);
 std::string emit(int t, int tval);
 int lookup(char s[]);
