@@ -19,6 +19,8 @@
 #define ID		259
 #define DONE	260
 
+using namespace std;
+
 extern int tokenval;
 extern int lineno;
 
@@ -31,11 +33,11 @@ extern struct entry symtable[];
 
 int lexan();
 void parse();
-void expr();
-void term();
-void factor();
+string expr();
+string term();
+string factor();
 void match(int t);
-std::string emit(int t, int tval);
+string emit(int t, int tval);
 int lookup(char s[]);
 int insert(char s[], int tok);
 void init();

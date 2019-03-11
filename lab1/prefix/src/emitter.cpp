@@ -1,12 +1,12 @@
 #include "global.h"
 
-std::string emit(int t, int tval) {
+string emit(int t, int tval) {
     switch (t) {
         case '+':
         case '-':
         case '*':
         case '/':
-            return std::string(1, (char)t);
+            return string(1, (char)t);
         case DIV:
             return "DIV";
         case MOD:

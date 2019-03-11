@@ -1,76 +1,73 @@
 #include "global.h"
 
 int lookahead;
-std::string result = "";
 
-void parse()
-{
+void parse() {
     lookahead = lexan();
-    while (lookahead != DONE) {
-        expr();
-    }
-    std::cout << result << std::endl;
+    while (lookahead != DONE)
+        cout << expr();
+    cout << endl;
 }
 
-void expr()
-{
-    int t;
-    term();
+string expr() {
+    string part1, operation, part2;
+    part1 = term();
     while (true) {
         switch (lookahead) {
-            case '+': case '-':
-                t = lookahead;
+            case '+':
+            case '-':
+                operation = emit(lookahead, NONE);
                 match(lookahead);
-                result = emit(t, NONE) + result;
-                term();
+                part2 = term();
                 continue;
             default:
-                return;
+                return operation + part1 + part2;
         }
     }
 }
 
-void term()
-{
-    int t;
-    factor();
+string term() {
+    string part1, operation, part2;
+    part1 = factor();
     while (true) {
         switch (lookahead) {
-            case '*': case '/': case DIV: case MOD:
-                t = lookahead;
+            case '*':
+            case '/':
+            case DIV:
+            case MOD:
+                operation = emit(lookahead, NONE);
                 match(lookahead);
-                result = emit(t, NONE) + result;
-                factor();
+                part2 = factor();
                 continue;
             default:
-                return;
+                return operation + part1 + part2;
         }
     }
 }
 
-void factor()
-{
+string factor() {
+    string value;
     switch (lookahead) {
         case '(':
             match('(');
-            expr();
+            value = expr();
             match(')');
-            break;
+            return value;
         case NUM:
-            result += emit(NUM, tokenval);
+            value = emit(NUM, tokenval);
             match(NUM);
-            break;
+            return value;
         case ID:
-            result += emit(ID, tokenval);
+            value = emit(ID, tokenval);
             match(ID);
-            break;
+            return value;
         default:
             error("factor: syntax error");
     }
+    return "";
 }
 
-void match(int t)
-{
+void match(int t) {
     if (lookahead == t)
         lookahead = lexan();
     else
