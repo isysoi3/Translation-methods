@@ -26,7 +26,7 @@ int insert(char s[], int tok) {
     symtable[lastentry].token = tok;
     symtable[lastentry].lexptr = &lexemes[lastchar + 1];
     lastchar += len + 1;
-    strcpy_s(symtable[lastentry].lexptr, strlen(s) + 1, s);
+    strcpy(symtable[lastentry].lexptr, s);
 
     return lastentry;
 
